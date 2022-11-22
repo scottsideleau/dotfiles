@@ -1,0 +1,13 @@
+#! /bin/bash
+
+# Start the SSH agent only if not running
+[[ -z $(ps axu | grep $(whoami) | grep [s]sh-agent) ]] \
+  && echo $(ssh-agent) > $HOME/.ssh/ssh-agent-info
+
+# Identify the running SSH agent
+[[ -z $SSH_AGENT_PID ]] \
+  && source $HOME/.ssh/ssh-agent-info > /dev/null
+
+# Authenticate (change key path or make a symlink if needed)
+[[ -z $( ssh-add -l | grep '$HOME/.ssh/id_rsa' ) ]] \
+  && ssh-add
