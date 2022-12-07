@@ -1,0 +1,17 @@
+#! /bin/bash
+
+pushd_q() 
+{
+	command pushd "$@" &> /dev/null
+}
+export pushd_q
+
+popd_q() 
+{
+	command popd "$@" &> /dev/null
+}
+export popd_q
+
+alias puml='pushd_q /opt/plantuml ; 
+	$( java -jar plantuml.jar &> /dev/null & ) ;
+	popd_q'
