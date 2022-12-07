@@ -1,0 +1,9 @@
+#! /bin/bash
+
+BASE='/mnt/c/Program Files/Amazon Corretto'
+VER=$( ls "${BASE}" | sort --version-sort | tail -1 )
+
+export JAVA_HOME="${BASE}/${VER}/bin"
+
+alias java='java.exe'
+alias javac='javac.exe'
