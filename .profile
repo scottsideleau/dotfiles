@@ -21,7 +21,7 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user's private local bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
@@ -31,7 +31,7 @@ if [ -f "$HOME/.config-sshagent" ]; then
     . "$HOME/.config-sshagent"
 fi
 
-# config Java
+# config Java in WSL environment
 if [ -f "$HOME/.config-java-wsl" ]; then
     . "$HOME/.config-java-wsl"
 fi
@@ -39,4 +39,9 @@ fi
 # add Aliases
 if [ -f "$HOME/.aliases" ]; then
     . "$HOME/.aliases"
+fi
+
+# add Functions
+if [ -f "$HOME/.functions" ]; then
+    . "$HOME/.functions"
 fi
