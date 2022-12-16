@@ -1,0 +1,37 @@
+#! /bin/bash
+
+QUIET='&> /dev/null'
+
+pandoc2pdf()
+{
+  pandoc -V geometry:letterpaper -V geometry:margin=1in $1 --latex-engine=pdflatex -o $2
+}
+
+passgen()
+{
+  cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%&' | fold -w 16 | head -n100 | shuf -n1
+}
+
+proxify()
+{
+  PROXY='http://localhost:8080'
+
+  export http_proxy="$PROXY"
+  export HTTP_PROXY="$PROXY"
+  export https_proxy="$PROXY"
+  export HTTPS_PROXY="$PROXY"
+}
+
+pithos-start()
+{
+  # activate Python3
+  . /opt/python3.7/venv/bin/activate
+
+  # launch Pithos
+  eval pushd /opt/pithos "$QUIET"
+  eval ninja -C build run "$QUIET" &
+  eval popd "$QUIET"
+
+  # deactivate Python3
+  deactivate
+}
